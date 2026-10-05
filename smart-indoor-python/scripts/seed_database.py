@@ -18,22 +18,22 @@ logger = logging.getLogger("smart_indoor.seed")
 async def seed_all():
     async with AsyncSessionLocal() as db:
         # 1. Seed Users
-        admin_res = await db.execute(select(User).where(User.email == "admin@envirosync.io"))
+        admin_res = await db.execute(select(User).where(User.email == "admin@envirosync.in"))
         if not admin_res.scalars().first():
             logger.info("Seeding default users...")
             admin_user = User(
                 id="user-admin-01",
-                email="admin@envirosync.io",
+                email="admin@envirosync.in",
                 hashed_password=get_password_hash("Admin@123456"),
-                full_name="System Administrator",
+                full_name="Dr. Rajesh Sharma",
                 role=UserRole.ADMIN,
                 is_active=True
             )
             demo_user = User(
                 id="user-demo-01",
-                email="user@envirosync.io",
+                email="user@envirosync.in",
                 hashed_password=get_password_hash("User@123456"),
-                full_name="Facility Manager",
+                full_name="Priya Patel",
                 role=UserRole.USER,
                 assigned_hall_id="hall-01",
                 is_active=True
@@ -43,9 +43,7 @@ async def seed_all():
 
         # 2. Seed Halls
         halls_data = [
-            {"id": "hall-01", "name": "Main Seminar Hall", "building": "Building A", "floor": 2, "capacity": 60},
-            {"id": "hall-02", "name": "Conference Room B", "building": "Building B", "floor": 1, "capacity": 25},
-            {"id": "hall-03", "name": "Smart Classroom 301", "building": "Building C", "floor": 3, "capacity": 40},
+            {"id": "hall-01", "name": "Hall 01", "building": "Aryabhata Academic Block", "floor": 1, "capacity": 60},
         ]
 
         for h in halls_data:
